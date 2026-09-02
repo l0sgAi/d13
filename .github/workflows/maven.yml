@@ -14,17 +14,8 @@ on:
   pull_request:
     branches: [ "master" ]
 
-snyk-sast-scan:
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@master
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -37,3 +28,12 @@ snyk-sast-scan:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+
+  synk-sast-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
